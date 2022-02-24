@@ -1,5 +1,12 @@
 const { ApolloServer, gql } = require("apollo-server")
 
+// note: cannot import statement outside a module
+// import { ApolloServer, gql } from "apollo-server"
+
+const { products } = require("./products")
+// log
+console.log("products are: ", products)
+
 /**
  * here we're defining how a query should look
  */
@@ -12,6 +19,15 @@ const { ApolloServer, gql } = require("apollo-server")
 const typeDefs = gql`
   type Query {
     hello: [String!]!
+    products: [Product!]!
+  }
+
+  type Product {
+    name: String!
+    description: String!
+    quantity: Int!
+    price: Float!
+    onSale: Boolean!
   }
 `
 /**
@@ -29,6 +45,9 @@ const resolvers = {
       // this works if the type is just String
       // no (!)
       // return null
+    },
+    products: () => {
+      return products
     },
   },
 }
