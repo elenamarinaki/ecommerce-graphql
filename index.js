@@ -28,7 +28,7 @@ const resolvers = {
       return ["hello", "World", "!!"]
       // this works if the type is just String
       // no (!)
-      //   return null
+      // return null
     },
   },
 }
