@@ -7,12 +7,14 @@ const { ApolloServer, gql } = require("apollo-server")
  * the 'String' here is a Scalar type
  * in general, we have 2 options: we can return something that
  * is scalar or an object type
- * Scalar types are -> String, Int, Float, Boolean
+ * Scalar types are -> String, Int, Float, Boolean, ID
  */
 const typeDefs = gql`
   type Query {
     hello: String
     numberOfAnimals: Int
+    price: Float
+    isCool: Boolean
   }
 `
 /**
@@ -29,6 +31,8 @@ const resolvers = {
       return "World!"
     },
     numberOfAnimals: () => 55,
+    price: () => 5.3,
+    isCool: () => false,
   },
 }
 
