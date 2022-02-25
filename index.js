@@ -21,7 +21,8 @@ const typeDefs = gql`
     hello: [String!]!
     products: [Product!]!
   }
-
+  # when we query non scalar types, we have to specify which parts
+  # of the objects we want - we cannot ask for the whole object
   type Product {
     name: String!
     description: String!
