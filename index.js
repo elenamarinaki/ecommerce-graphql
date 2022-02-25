@@ -4,8 +4,9 @@ const { ApolloServer, gql } = require("apollo-server")
 // import { ApolloServer, gql } from "apollo-server"
 
 const { products } = require("./products")
+const { categories } = require("./categories")
 // log
-console.log("products are: ", products)
+console.log("categories are: ", categories)
 
 /**
  * here we're defining how a query should look
@@ -21,15 +22,22 @@ const typeDefs = gql`
     hello: [String!]!
     products: [Product!]!
     product(id: ID!): Product
+    categories: [Category!]!
   }
   # when we query non scalar types, we have to specify which parts
   # of the objects we want - we cannot ask for the whole object
   type Product {
+    id: ID!
     name: String!
     description: String!
     quantity: Int!
     price: Float!
     onSale: Boolean!
+  }
+
+  type Category {
+    id: ID!
+    name: String!
   }
 `
 /**
@@ -49,10 +57,12 @@ const resolvers = {
       // return null
     },
     products: () => products,
+    // the args is the argument that we pass into our query as an ID
     product: (parent, args, context) => {
       console.log(args)
       return products.find((product) => args.id === product.id)
     },
+    categories: () => categories,
   },
 }
 
