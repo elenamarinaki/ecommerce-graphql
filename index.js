@@ -20,6 +20,7 @@ const typeDefs = gql`
   type Query {
     hello: [String!]!
     products: [Product!]!
+    product(id: ID!): Product
   }
   # when we query non scalar types, we have to specify which parts
   # of the objects we want - we cannot ask for the whole object
@@ -47,8 +48,10 @@ const resolvers = {
       // no (!)
       // return null
     },
-    products: () => {
-      return products
+    products: () => products,
+    product: (parent, args, context) => {
+      console.log(args)
+      return products.find((product) => args.id === product.id)
     },
   },
 }
