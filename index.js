@@ -23,6 +23,7 @@ const typeDefs = gql`
     products: [Product!]!
     product(id: ID!): Product
     categories: [Category!]!
+    category(id: ID!): Category
   }
   # when we query non scalar types, we have to specify which parts
   # of the objects we want - we cannot ask for the whole object
@@ -63,6 +64,9 @@ const resolvers = {
       return products.find((product) => args.id === product.id)
     },
     categories: () => categories,
+    category: (parent, args, context) => {
+      return categories.find((category) => args.id === category.id)
+    },
   },
 }
 
