@@ -34,6 +34,7 @@ const typeDefs = gql`
     quantity: Int!
     price: Float!
     onSale: Boolean!
+    category: Category
   }
 
   type Category {
@@ -52,6 +53,9 @@ const typeDefs = gql`
  * we have declared in the schema
  */
 const resolvers = {
+  // note: ------------------------------------------------
+  // everything under "Query" resolves scalar only types???
+  // not sure 🤔
   Query: {
     hello: () => {
       return ["hello", "World", "!!"]
@@ -74,6 +78,11 @@ const resolvers = {
     products: (parent, args, context) => {
       const categoryId = parent.id
       return products.filter((product) => product.categoryId === categoryId)
+    },
+  },
+  Product: {
+    category: (parent, args, context) => {
+      return categories.find((category) => category.id === parent.categoryId)
     },
   },
 }
