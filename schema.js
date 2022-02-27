@@ -10,7 +10,6 @@ const { gql } = require("apollo-server")
  */
 exports.typeDefs = gql`
   type Query {
-    hello: [String!]!
     products: [Product!]!
     product(id: ID!): Product
     categories: [Category!]!
