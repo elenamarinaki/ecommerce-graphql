@@ -1,5 +1,3 @@
-const { products, categories } = require("../db")
-
 /**
  * here we are resolving the query, by returning information
  * depending on how it's defined above
@@ -23,11 +21,13 @@ exports.Query = {
   products: () => products,
   // the args is the argument that we pass into our query as an ID
   product: (parent, args, context) => {
+    const products = context.products
     console.log(args)
     return products.find((product) => args.id === product.id)
   },
   categories: () => categories,
   category: (parent, args, context) => {
+    const categories = context.categories
     return categories.find((category) => args.id === category.id)
   },
 }
