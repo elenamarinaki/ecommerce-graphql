@@ -4,8 +4,8 @@ const { typeDefs } = require("./schema")
 // note: cannot import statement outside a module
 // import { ApolloServer, gql } from "apollo-server"
 
-const { products } = require("./products")
-const { categories } = require("./categories")
+const { products, categories } = require("./db")
+
 // log
 console.log("categories are: ", categories)
 
