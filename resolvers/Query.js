@@ -12,7 +12,15 @@
 // not sure 🤔
 
 exports.Query = {
-  products: (parent, args, { products }) => products,
+  products: (parent, { filter }, { products }) => {
+    if (filter) {
+      const filteredProducts = products.filter(
+        (product) => product.onSale === filter.onSale
+      )
+      return filteredProducts
+    }
+    return products
+  },
   // the args is the argument that we pass into our query as an ID
   product: (parent, { id }, { products }) => {
     return products.find((product) => id === product.id)

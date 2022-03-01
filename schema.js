@@ -9,8 +9,9 @@ const { gql } = require("apollo-server")
  * Scalar types are -> String, Int, Float, Boolean, ID
  */
 exports.typeDefs = gql`
+  # we can define the the ID parameters here inline, only because these are scalar types
   type Query {
-    products: [Product!]!
+    products(filter: ProductsFilterInput): [Product!]!
     product(id: ID!): Product
     categories: [Category!]!
     category(id: ID!): Category
@@ -41,5 +42,9 @@ exports.typeDefs = gql`
     title: String!
     comment: String!
     rating: Int!
+  }
+
+  input ProductsFilterInput {
+    onSale: Boolean
   }
 `
