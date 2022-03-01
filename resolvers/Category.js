@@ -1,13 +1,30 @@
 exports.Category = {
-  products: ({ id: categoryId }, { filter }, { products }) => {
+  products: ({ id: categoryId }, { filter }, { products, reviews }) => {
     const categoryProducts = products.filter(
       (product) => product.categoryId === categoryId
     )
 
     if (filter) {
-      const filteredProducts = categoryProducts.filter(
-        (product) => product.onSale === filter.onSale
+      const { onSale, avgRating } = filter
+
+      let filteredProducts = categoryProducts.filter(
+        (product) => product.onSale === onSale
       )
+
+      if ([1, 2, 3, 4, 5].includes(avgRating)) {
+        filteredProducts = filteredProducts.filter((product) => {
+          let sumRating = 0
+          let numberOfReviews = 0
+          reviews.forEach((review) => {
+            if (review.productId === product.id) {
+              sumRating += review.rating
+              numberOfReviews++
+            }
+          })
+          let avgProductRating = sumRating / numberOfReviews
+          return avgProductRating >= avgRating
+        })
+      }
       return filteredProducts
     }
 
