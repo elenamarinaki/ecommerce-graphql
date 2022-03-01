@@ -16,6 +16,10 @@ exports.typeDefs = gql`
     categories: [Category!]!
     category(id: ID!): Category
   }
+
+  type Mutation {
+    addCategory(input: AddCategoryInput!): Category!
+  }
   # when we query non scalar types, we have to specify which parts
   # of the objects we want - we cannot ask for the whole object
   type Product {
@@ -47,5 +51,9 @@ exports.typeDefs = gql`
   input ProductsFilterInput {
     onSale: Boolean
     avgRating: Int
+  }
+
+  input AddCategoryInput {
+    name: String!
   }
 `
