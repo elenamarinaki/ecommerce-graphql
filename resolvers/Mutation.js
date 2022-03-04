@@ -14,7 +14,8 @@ exports.Mutation = {
     return newCategory
   },
   addProduct: (parent, { input }, { products }) => {
-    const { name, image, price, onSale, quantity, categoryId } = input
+    const { name, image, description, price, onSale, quantity, categoryId } =
+      input
 
     const newProduct = {
       id: uuid(),
