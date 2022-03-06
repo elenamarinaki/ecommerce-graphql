@@ -48,4 +48,8 @@ exports.Mutation = {
 
     return newReview
   },
+  deleteCategory: (parent, { id }, { db }) => {
+    db.categories = db.categories.filter((category) => category.id !== id)
+    return true
+  },
 }
