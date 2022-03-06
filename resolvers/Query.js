@@ -12,11 +12,11 @@
 // not sure 🤔
 
 exports.Query = {
-  products: (parent, { filter }, { products, reviews }) => {
+  products: (parent, { filter }, { db }) => {
     if (filter) {
       const { onSale, avgRating } = filter
 
-      let filteredProducts = products.filter(
+      let filteredProducts = db.products.filter(
         (product) => product.onSale === onSale
       )
 
@@ -24,7 +24,7 @@ exports.Query = {
         filteredProducts = filteredProducts.filter((product) => {
           let sumRating = 0
           let numberOfReviews = 0
-          reviews.forEach((review) => {
+          db.reviews.forEach((review) => {
             if (review.productId === product.id) {
               sumRating += review.rating
               numberOfReviews++
@@ -36,14 +36,14 @@ exports.Query = {
       }
       return filteredProducts
     }
-    return products
+    return db.products
   },
   // the args is the argument that we pass into our query as an ID
-  product: (parent, { id }, { products }) => {
-    return products.find((product) => id === product.id)
+  product: (parent, { id }, { db }) => {
+    return db.products.find((product) => id === product.id)
   },
-  categories: (parent, args, { categories }) => categories,
-  category: (parent, { id }, { categories }) => {
-    return categories.find((category) => id === category.id)
+  categories: (parent, args, { db }) => db.categories,
+  category: (parent, { id }, { db }) => {
+    return db.categories.find((category) => id === category.id)
   },
 }
