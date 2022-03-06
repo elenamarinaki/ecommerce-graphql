@@ -23,6 +23,7 @@ exports.typeDefs = gql`
     addReview(input: AddReviewInput): Review!
     deleteCategory(id: ID!): Boolean!
     deleteProduct(id: ID!): Boolean!
+    deleteReview(id: ID!): Boolean!
   }
   # when we query non scalar types, we have to specify which parts
   # of the objects we want - we cannot ask for the whole object
